@@ -1,0 +1,27 @@
+.photo-pick {
+  width: 100%;
+  border: 1.5px dashed var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.photo-pick:hover {
+  border-color: var(--accent);
+}
+.photo-pick img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+}
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
