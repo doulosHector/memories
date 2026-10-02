@@ -13,6 +13,7 @@ import {
   formatElapsed,
   formatLongDate,
 } from '../../../utils/format'
+import { objectPosition } from '../../../utils/photoFocus'
 import './memory-detail.css'
 
 function MemoryDetail({ memory }: { memory: Memory }) {
@@ -45,7 +46,11 @@ function MemoryDetail({ memory }: { memory: Memory }) {
     <>
       {photoUrl && (
         <div className="detail-photo">
-          <img src={photoUrl} alt={`Foto de ${memory.name}`} />
+          <img
+            src={photoUrl}
+            alt={`Foto de ${memory.name}`}
+            style={{ objectPosition: objectPosition(memory.photoFocus) }}
+          />
         </div>
       )}
       <h2 className="detail-name" id={SHEET_TITLE_ID}>
@@ -92,7 +97,7 @@ export function MemoryDetailSheet({ memoryId }: { memoryId: string }) {
   const memory = state.memories.find(({ id }) => id === memoryId)
 
   return (
-    <SheetContent onClose={closeSheet}>
+    <SheetContent compact onClose={closeSheet}>
       {memory && <MemoryDetail memory={memory} />}
     </SheetContent>
   )

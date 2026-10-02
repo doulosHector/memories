@@ -4,14 +4,13 @@
   gap: 12px;
 }
 .event-card {
-  display: grid;
-  grid-template-columns: 76px 1fr;
-  gap: 16px;
-  align-items: center;
+  position: relative;
+  display: block;
+  overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 14px 16px;
   text-align: left;
   width: 100%;
   transition:
@@ -24,29 +23,57 @@
 .event-card:active {
   transform: scale(0.995);
 }
-.event-thumb {
-  width: 76px;
-  height: 76px;
-  border-radius: 10px;
-  overflow: hidden;
+
+/* Card with a photo: the photo fills the card, the text sits on a gradient. */
+.event-card.has-photo {
+  display: flex;
+  align-items: flex-end;
+  min-height: 170px;
   background: var(--surface-2);
+  color: #fff;
 }
-.event-thumb img {
+.event-photo {
+  position: absolute;
+  inset: 0;
+}
+.event-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.thumb-blank {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 500;
-  color: var(--ink-soft);
-  background: var(--surface-2);
+.event-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.35) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
+.has-photo .event-info {
+  position: relative;
+  width: 100%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.has-photo .event-elapsed,
+.has-photo .event-elapsed strong {
+  color: #fff;
+}
+.has-photo .event-elapsed {
+  opacity: 0.88;
+}
+.has-photo .event-anniv:not(.today) {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.has-photo .event-anniv {
+  text-shadow: none;
+}
+
 .event-info {
   min-width: 0;
 }

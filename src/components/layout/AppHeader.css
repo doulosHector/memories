@@ -10,9 +10,6 @@ header.app {
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-.brand span {
-  color: var(--accent);
-}
 .header-actions {
   display: flex;
   gap: 8px;

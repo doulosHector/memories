@@ -20,6 +20,3 @@ export const formatElapsed = ({ years, months, days }: Elapsed) => {
   if (parts.length === 1) return parts[0]
   return `${parts.slice(0, -1).join(', ')} y ${parts[parts.length - 1]}`
 }
-
-/** Uppercase first letter of a name, used when there is no photo. */
-export const initialOf = (name: string) => (name.trim()[0] || '•').toUpperCase()

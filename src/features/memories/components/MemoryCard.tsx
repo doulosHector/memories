@@ -1,7 +1,8 @@
+import { usePhotoUrl } from '../../../hooks/usePhotoUrl'
 import { happensToday, type MemorySummary } from '../../../services/memories'
 import { formatDays, formatElapsed } from '../../../utils/format'
+import { objectPosition } from '../../../utils/photoFocus'
 import { cx } from '../../../utils/style'
-import { MemoryThumb } from './MemoryThumb'
 
 interface MemoryCardProps {
   summary: MemorySummary
@@ -27,10 +28,26 @@ function ElapsedLine({ summary }: { summary: MemorySummary }) {
 export function MemoryCard({ summary, onOpen }: MemoryCardProps) {
   const { memory, isFuture, daysUntil } = summary
   const isAnniversary = daysUntil === 0
+  const hasPhoto = memory.photoId !== null
+  const photoUrl = usePhotoUrl(memory.photoId)
 
   return (
-    <button className="event-card" onClick={() => onOpen(memory.id)}>
-      <MemoryThumb memory={memory} />
+    <button
+      className={cx('event-card', hasPhoto && 'has-photo')}
+      onClick={() => onOpen(memory.id)}
+    >
+      {hasPhoto && (
+        <span className="event-photo">
+          {photoUrl && (
+            <img
+              src={photoUrl}
+              alt=""
+              loading="lazy"
+              style={{ objectPosition: objectPosition(memory.photoFocus) }}
+            />
+          )}
+        </span>
+      )}
       <span className="event-info">
         <span className="event-name">{memory.name}</span>
         <span className="event-elapsed">

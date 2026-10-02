@@ -11,9 +11,7 @@ export function AppHeader() {
 
   return (
     <header className="app">
-      <div className="brand">
-        Recuer<span>dos</span>
-      </div>
+      <div className="brand">Recuerdos</div>
       <div className="header-actions">
         <button
           className="icon-btn"

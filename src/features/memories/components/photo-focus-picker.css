@@ -1,0 +1,74 @@
+.focus-picker {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  padding: 12px;
+}
+.focus-frame {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  line-height: 0;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.focus-frame img {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 8px;
+  -webkit-user-drag: none;
+}
+.focus-marker {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: rgba(20, 105, 91, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+.focus-hint {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.focus-previews {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+.focus-previews figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+.focus-preview {
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+/* Same proportions as the card banner and the detail photo box. */
+.focus-preview.card {
+  aspect-ratio: 364 / 170;
+}
+.focus-preview.detail {
+  aspect-ratio: 1 / 1;
+}
+.focus-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -52,25 +52,38 @@ export function BottomSheet({
 interface SheetContentProps {
   /** Visible title. Without it, the sheet body must render the element with `SHEET_TITLE_ID`. */
   title?: ReactNode
+  /** Smaller header with only the close button, so the content starts higher. */
+  compact?: boolean
   onClose: () => void
   children: ReactNode
 }
 
 /** Header (title + close button) and body of a sheet. */
-export function SheetContent({ title, onClose, children }: SheetContentProps) {
+export function SheetContent({
+  title,
+  compact = false,
+  onClose,
+  children,
+}: SheetContentProps) {
   return (
     <>
-      <div className="sheet-head">
+      <div className={cx('sheet-head', compact && 'compact')}>
         {title ? (
           <h2 className="sheet-title" id={SHEET_TITLE_ID}>
             {title}
           </h2>
         ) : (
-          <span className="sheet-title placeholder" aria-hidden="true">
-            .
-          </span>
+          !compact && (
+            <span className="sheet-title placeholder" aria-hidden="true">
+              .
+            </span>
+          )
         )}
-        <button className="icon-btn" onClick={onClose} aria-label="Cerrar">
+        <button
+          className={cx('icon-btn', compact && 'small')}
+          onClick={onClose}
+          aria-label="Cerrar"
+        >
           <Icon name="close" />
         </button>
       </div>

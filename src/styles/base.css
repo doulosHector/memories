@@ -39,7 +39,7 @@ textarea:focus-visible,
 }
 
 .wrap {
-  max-width: 720px;
+  max-width: 400px;
   margin: 0 auto;
   padding: 20px 18px 90px;
 }

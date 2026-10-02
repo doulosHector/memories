@@ -17,7 +17,14 @@ describe('normalizeState', () => {
 
   it('keeps valid memories as they are', () => {
     const state = memoriesState({
-      memories: [memory({ id: 'a', photoId: 'p1', description: 'Hola' })],
+      memories: [
+        memory({
+          id: 'a',
+          photoId: 'p1',
+          photoFocus: { x: 20, y: 80 },
+          description: 'Hola',
+        }),
+      ],
       settings: { theme: 'dark' },
     })
     expect(normalizeState(JSON.parse(JSON.stringify(state)))).toEqual(state)
@@ -44,6 +51,7 @@ describe('normalizeState', () => {
           date: '2020-01-01',
           description: 42,
           photoId: '',
+          photoFocus: { x: 'left' },
           createdAt: 'yesterday',
         },
       ],
@@ -57,6 +65,7 @@ describe('normalizeState', () => {
           date: '2020-01-01',
           description: '',
           photoId: null,
+          photoFocus: { x: 50, y: 50 },
           createdAt: 0,
         },
       ],

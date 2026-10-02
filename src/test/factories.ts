@@ -6,6 +6,7 @@ export const memory = (overrides: Partial<Memory> = {}): Memory => ({
   date: '2020-06-15',
   description: '',
   photoId: null,
+  photoFocus: { x: 50, y: 50 },
   createdAt: 1,
   ...overrides,
 })

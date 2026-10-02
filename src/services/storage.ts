@@ -1,5 +1,6 @@
 import type { MemoriesState, Memory, ThemePreference } from '../types'
 import { isDateKey } from '../utils/date'
+import { toPhotoFocus } from '../utils/photoFocus'
 import { createDefaultState } from './defaults'
 
 export const STORAGE_KEY = 'memories:v1'
@@ -30,6 +31,7 @@ const toMemory = (raw: unknown): Memory | null => {
         : '',
     photoId:
       typeof raw.photoId === 'string' && raw.photoId ? raw.photoId : null,
+    photoFocus: toPhotoFocus(raw.photoFocus),
     createdAt:
       typeof raw.createdAt === 'number' && Number.isFinite(raw.createdAt)
         ? raw.createdAt

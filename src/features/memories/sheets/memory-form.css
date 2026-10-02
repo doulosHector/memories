@@ -14,10 +14,9 @@
 .photo-pick:hover {
   border-color: var(--accent);
 }
-.photo-pick img {
-  width: 100%;
-  max-height: 240px;
-  object-fit: cover;
+.photo-actions {
+  display: flex;
+  gap: 18px;
 }
 .form-actions {
   display: flex;

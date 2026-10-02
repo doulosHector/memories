@@ -8,6 +8,14 @@
   border: 1px solid var(--line);
   transition: background 0.2s ease;
 }
+.icon-btn.small {
+  width: 30px;
+  height: 30px;
+}
+.icon-btn.small svg {
+  width: 14px;
+  height: 14px;
+}
 .icon-btn:hover {
   background: var(--surface-2);
 }
@@ -61,6 +69,9 @@
   color: var(--danger);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+.link-btn.neutral {
+  color: var(--ink-soft);
 }
 
 .field {

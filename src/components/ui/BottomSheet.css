@@ -14,7 +14,7 @@
 .sheet {
   background: var(--surface);
   width: 100%;
-  max-width: 560px;
+  max-width: 400px;
   border-radius: 20px 20px 0 0;
   box-shadow: var(--shadow);
   max-height: 92vh;
@@ -61,4 +61,11 @@
 }
 .sheet-body {
   padding: 16px 20px 24px;
+}
+.sheet-head.compact {
+  justify-content: flex-end;
+  padding: 10px 14px 0;
+}
+.sheet-head.compact + .sheet-body {
+  padding-top: 8px;
 }

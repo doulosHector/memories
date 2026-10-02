@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  formatDays,
-  formatElapsed,
-  formatLongDate,
-  initialOf,
-  plural,
-} from './format'
+import { formatDays, formatElapsed, formatLongDate, plural } from './format'
 
 describe('plural', () => {
   it('uses the singular form only for 1', () => {
@@ -37,12 +31,5 @@ describe('formatElapsed', () => {
 
   it('shows 0 días when no time has passed', () => {
     expect(formatElapsed({ years: 0, months: 0, days: 0 })).toBe('0 días')
-  })
-})
-
-describe('initialOf', () => {
-  it('returns the uppercase first letter, or a dot for blank names', () => {
-    expect(initialOf('  boda')).toBe('B')
-    expect(initialOf('   ')).toBe('•')
   })
 })

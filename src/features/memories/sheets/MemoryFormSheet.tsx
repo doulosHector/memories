@@ -16,6 +16,8 @@ import {
 } from '../../../services/storage'
 import { isDateKey, toDateKey } from '../../../utils/date'
 import { compressImage } from '../../../utils/image'
+import { DEFAULT_PHOTO_FOCUS } from '../../../utils/photoFocus'
+import { PhotoFocusPicker } from '../components/PhotoFocusPicker'
 import './memory-form.css'
 
 interface PickedPhoto {
@@ -38,6 +40,9 @@ export function MemoryFormSheet({ memoryId }: { memoryId: string | null }) {
   const [description, setDescription] = useState(existing?.description ?? '')
   const [picked, setPicked] = useState<PickedPhoto | null>(null)
   const [removePhoto, setRemovePhoto] = useState(false)
+  const [photoFocus, setPhotoFocus] = useState(
+    existing?.photoFocus ?? DEFAULT_PHOTO_FOCUS,
+  )
   const [saving, setSaving] = useState(false)
   const fileInput = useRef<HTMLInputElement>(null)
   const ids = useId()
@@ -56,6 +61,7 @@ export function MemoryFormSheet({ memoryId }: { memoryId: string | null }) {
     if (!file) return
     setPicked({ file, url: URL.createObjectURL(file) })
     setRemovePhoto(false)
+    setPhotoFocus(DEFAULT_PHOTO_FOCUS)
   }
 
   const handleRemovePhoto = () => {
@@ -100,6 +106,7 @@ export function MemoryFormSheet({ memoryId }: { memoryId: string | null }) {
         date,
         description: description.trim(),
         photoId,
+        photoFocus: photoId ? photoFocus : DEFAULT_PHOTO_FOCUS,
       }
       if (existing) actions.updateMemory(existing.id, data)
       else actions.addMemory(data)
@@ -126,20 +133,22 @@ export function MemoryFormSheet({ memoryId }: { memoryId: string | null }) {
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor={`${ids}-photo`}>Foto (opcional)</label>
-          <button
-            type="button"
-            className="photo-pick"
-            onClick={() => fileInput.current?.click()}
-          >
-            {previewUrl ? (
-              <img
-                src={previewUrl}
-                alt={picked ? 'Foto seleccionada' : 'Foto actual'}
-              />
-            ) : (
+          {previewUrl ? (
+            <PhotoFocusPicker
+              src={previewUrl}
+              alt={picked ? 'Foto seleccionada' : 'Foto actual'}
+              focus={photoFocus}
+              onChange={setPhotoFocus}
+            />
+          ) : (
+            <button
+              type="button"
+              className="photo-pick"
+              onClick={() => fileInput.current?.click()}
+            >
               <span>Toca para elegir una foto</span>
-            )}
-          </button>
+            </button>
+          )}
           <input
             ref={fileInput}
             type="file"
@@ -149,13 +158,22 @@ export function MemoryFormSheet({ memoryId }: { memoryId: string | null }) {
             onChange={handleFileChange}
           />
           {previewUrl && (
-            <button
-              type="button"
-              className="link-btn"
-              onClick={handleRemovePhoto}
-            >
-              Quitar foto
-            </button>
+            <div className="photo-actions">
+              <button
+                type="button"
+                className="link-btn neutral"
+                onClick={() => fileInput.current?.click()}
+              >
+                Cambiar foto
+              </button>
+              <button
+                type="button"
+                className="link-btn"
+                onClick={handleRemovePhoto}
+              >
+                Quitar foto
+              </button>
+            </div>
           )}
         </div>
         <div className="field">
