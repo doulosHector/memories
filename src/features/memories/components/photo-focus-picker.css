@@ -62,10 +62,10 @@
 }
 /* Same proportions as the card banner and the detail photo box. */
 .focus-preview.card {
-  aspect-ratio: 364 / 170;
+  aspect-ratio: 364 / 140;
 }
 .focus-preview.detail {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
 }
 .focus-preview img {
   width: 100%;

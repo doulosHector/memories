@@ -11,12 +11,18 @@ export const formatDays = (count: number) => plural(count, 'día', 'días')
 export const formatLongDate = (date: Date) =>
   `${date.getDate()} de ${MONTH_NAMES[date.getMonth()]} de ${date.getFullYear()}`
 
-/** `2 años, 3 meses y 4 días`, skipping the zero parts. */
-export const formatElapsed = ({ years, months, days }: Elapsed) => {
+/** `['2 años', '3 meses', '4 días']`, skipping the zero parts. */
+export const elapsedParts = ({ years, months, days }: Elapsed): string[] => {
   const parts: string[] = []
   if (years > 0) parts.push(plural(years, 'año', 'años'))
   if (months > 0) parts.push(plural(months, 'mes', 'meses'))
   if (days > 0 || parts.length === 0) parts.push(formatDays(days))
+  return parts
+}
+
+/** `2 años, 3 meses y 4 días`, skipping the zero parts. */
+export const formatElapsed = (elapsed: Elapsed) => {
+  const parts = elapsedParts(elapsed)
   if (parts.length === 1) return parts[0]
   return `${parts.slice(0, -1).join(', ')} y ${parts[parts.length - 1]}`
 }

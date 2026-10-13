@@ -10,16 +10,19 @@ their photos in IndexedDB. There is no backend and no account.
 ## Features
 
 - **Events**: name, date, optional description and optional photo (resized
-  to at most 1600px and saved as JPEG). Drag a point on the photo to choose
+  to at most 1600px and saved as JPEG, with transparent areas painted white;
+  JPEGs that already fit are kept as they are). Drag a point on the photo to choose
   which part stays visible when it is cropped.
 - **Cards** use the photo as their background; cards without a photo show
   only the text.
 - **Counters**: time since each event in years, months and days, days until
   its next anniversary (Feb 29 events celebrate on Feb 28 in non-leap
   years), and days until events with a future date.
-- **List** sorted by the closest upcoming anniversary, with a highlight on
-  the day itself.
-- **Detail** view with a square photo, both counters, edit and delete.
+- **List** sorted by the event's date, newest first (one tap reverses it;
+  the choice is remembered), with a search by title that ignores case and
+  accents, and a highlight on anniversaries.
+- **Detail** view with a full-width photo, the elapsed time, the days to
+  the next anniversary, edit and delete.
 - **Light/dark theme** that follows the system until you pick one.
 - **PWA**: installable, works offline, updates automatically.
 

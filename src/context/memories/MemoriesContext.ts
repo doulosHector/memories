@@ -1,5 +1,10 @@
 import { createContext, type Dispatch } from 'react'
-import type { MemoriesState, Memory, ThemePreference } from '../../types'
+import type {
+  MemoriesState,
+  Memory,
+  SortOrder,
+  ThemePreference,
+} from '../../types'
 import { createId } from '../../utils/id'
 import type { MemoriesAction, MemoryChanges } from './memoriesReducer'
 
@@ -16,6 +21,8 @@ export const createMemoriesActions = (dispatch: Dispatch<MemoriesAction>) => ({
   deleteMemory: (id: string): void => dispatch({ type: 'memoryDeleted', id }),
   setTheme: (theme: ThemePreference): void =>
     dispatch({ type: 'themeChanged', theme }),
+  setSortOrder: (sortOrder: SortOrder): void =>
+    dispatch({ type: 'sortOrderChanged', sortOrder }),
 })
 
 export type MemoriesActions = ReturnType<typeof createMemoriesActions>

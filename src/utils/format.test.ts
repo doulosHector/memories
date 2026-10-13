@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { formatDays, formatElapsed, formatLongDate, plural } from './format'
+import {
+  elapsedParts,
+  formatDays,
+  formatElapsed,
+  formatLongDate,
+  plural,
+} from './format'
 
 describe('plural', () => {
   it('uses the singular form only for 1', () => {
@@ -31,5 +37,15 @@ describe('formatElapsed', () => {
 
   it('shows 0 días when no time has passed', () => {
     expect(formatElapsed({ years: 0, months: 0, days: 0 })).toBe('0 días')
+  })
+})
+
+describe('elapsedParts', () => {
+  it('returns one row per non-zero part', () => {
+    expect(elapsedParts({ years: 6, months: 0, days: 20 })).toEqual([
+      '6 años',
+      '20 días',
+    ])
+    expect(elapsedParts({ years: 0, months: 0, days: 0 })).toEqual(['0 días'])
   })
 })

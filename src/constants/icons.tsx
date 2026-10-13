@@ -11,6 +11,13 @@ export const UI_ICONS = {
     </>
   ),
   moon: <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />,
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-4-4" />
+    </>
+  ),
+  sort: <path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4" />,
 } satisfies Record<string, ReactNode>
 
 export type UiIconName = keyof typeof UI_ICONS

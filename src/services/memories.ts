@@ -1,4 +1,4 @@
-import type { Memory } from '../types'
+import type { Memory, SortOrder } from '../types'
 import {
   daysBetween,
   elapsedBetween,
@@ -34,14 +34,35 @@ export const summarizeMemory = (memory: Memory, today: Date): MemorySummary => {
   }
 }
 
-/** Summaries ordered by the closest upcoming date or anniversary first. */
+const compareByDate = (a: Memory, b: Memory) =>
+  a.date.localeCompare(b.date) || a.createdAt - b.createdAt
+
+/**
+ * Summaries ordered by the event's date: `newest` puts the latest date first
+ * (future events on top), `oldest` the earliest. Same-day events follow the
+ * order they were added in, reversed for `newest`.
+ */
 export const summarizeMemories = (
   memories: readonly Memory[],
   today: Date,
-): MemorySummary[] =>
-  memories
-    .map((memory) => summarizeMemory(memory, today))
-    .sort((a, b) => a.daysUntil - b.daysUntil)
+  order: SortOrder = 'newest',
+): MemorySummary[] => {
+  const sorted = [...memories].sort(compareByDate)
+  if (order === 'newest') sorted.reverse()
+  return sorted.map((memory) => summarizeMemory(memory, today))
+}
+
+/** Lowercase text without accents, so "graduacion" finds "Graduación". */
+const normalizeText = (text: string) =>
+  text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+
+/** The memory's name contains the search text (ignoring case and accents). */
+export const matchesSearch = (memory: Memory, query: string) =>
+  normalizeText(memory.name).includes(normalizeText(query))
 
 /** The memory's date is today. */
 export const happensToday = ({ elapsed }: MemorySummary) =>

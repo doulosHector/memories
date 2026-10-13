@@ -15,7 +15,7 @@ export const memoriesState = (
   overrides: Partial<MemoriesState> = {},
 ): MemoriesState => ({
   memories: [],
-  settings: { theme: 'system' },
+  settings: { theme: 'system', sortOrder: 'newest' },
   ...overrides,
 })
 

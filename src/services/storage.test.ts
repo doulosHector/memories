@@ -25,7 +25,7 @@ describe('normalizeState', () => {
           description: 'Hola',
         }),
       ],
-      settings: { theme: 'dark' },
+      settings: { theme: 'dark', sortOrder: 'oldest' },
     })
     expect(normalizeState(JSON.parse(JSON.stringify(state)))).toEqual(state)
   })
@@ -55,7 +55,7 @@ describe('normalizeState', () => {
           createdAt: 'yesterday',
         },
       ],
-      settings: { theme: 'sepia' },
+      settings: { theme: 'sepia', sortOrder: 'random' },
     })
     expect(state).toEqual({
       memories: [
@@ -69,7 +69,7 @@ describe('normalizeState', () => {
           createdAt: 0,
         },
       ],
-      settings: { theme: 'system' },
+      settings: { theme: 'system', sortOrder: 'newest' },
     })
   })
 

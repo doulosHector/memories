@@ -1,4 +1,9 @@
-import type { MemoriesState, Memory, ThemePreference } from '../types'
+import type {
+  MemoriesState,
+  Memory,
+  SortOrder,
+  ThemePreference,
+} from '../types'
 import { isDateKey } from '../utils/date'
 import { toPhotoFocus } from '../utils/photoFocus'
 import { createDefaultState } from './defaults'
@@ -15,6 +20,7 @@ const isRecord = (value: unknown): value is UnknownRecord =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
 
 const THEMES: readonly ThemePreference[] = ['system', 'light', 'dark']
+const SORT_ORDERS: readonly SortOrder[] = ['newest', 'oldest']
 
 const toMemory = (raw: unknown): Memory | null => {
   if (!isRecord(raw) || typeof raw.id !== 'string' || !raw.id) return null
@@ -63,6 +69,9 @@ export const normalizeState = (raw: unknown): MemoriesState | null => {
       theme: THEMES.includes(settings.theme as ThemePreference)
         ? (settings.theme as ThemePreference)
         : 'system',
+      sortOrder: SORT_ORDERS.includes(settings.sortOrder as SortOrder)
+        ? (settings.sortOrder as SortOrder)
+        : 'newest',
     },
   }
 }

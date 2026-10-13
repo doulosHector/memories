@@ -21,6 +21,14 @@
   line-height: 1.2;
   color: var(--accent);
 }
+.stat .label {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.stat .big .row {
+  display: block;
+}
 .stat .cap {
   font-size: 12.5px;
   color: var(--ink-soft);

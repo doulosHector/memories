@@ -5,14 +5,10 @@ import { useToast } from '../../../context/toast'
 import { useUi } from '../../../context/ui'
 import { usePhotoUrl } from '../../../hooks/usePhotoUrl'
 import { useToday } from '../../../hooks/useToday'
-import { summarizeMemory } from '../../../services/memories'
+import { happensToday, summarizeMemory } from '../../../services/memories'
 import { deletePhoto } from '../../../services/photoStore'
 import type { Memory } from '../../../types'
-import {
-  formatDays,
-  formatElapsed,
-  formatLongDate,
-} from '../../../utils/format'
+import { elapsedParts, formatDays, formatLongDate } from '../../../utils/format'
 import { objectPosition } from '../../../utils/photoFocus'
 import './memory-detail.css'
 
@@ -22,10 +18,8 @@ function MemoryDetail({ memory }: { memory: Memory }) {
   const { showToast } = useToast()
   const today = useToday()
   const photoUrl = usePhotoUrl(memory.photoId)
-  const { date, isFuture, elapsed, daysUntil } = useMemo(
-    () => summarizeMemory(memory, today),
-    [memory, today],
-  )
+  const summary = useMemo(() => summarizeMemory(memory, today), [memory, today])
+  const { date, isFuture, elapsed, daysUntil } = summary
 
   const handleDelete = () => {
     if (
@@ -38,19 +32,21 @@ function MemoryDetail({ memory }: { memory: Memory }) {
     showToast('Evento eliminado')
   }
 
-  let untilCaption = 'para el próximo aniversario'
-  if (isFuture) untilCaption = 'para que ocurra'
-  else if (daysUntil === 0) untilCaption = 'es el aniversario'
+  let untilLabel = 'Próximo aniversario en'
+  if (isFuture) untilLabel = 'Ocurrirá en'
+  else if (daysUntil === 0) untilLabel = 'Aniversario'
 
   return (
     <>
-      {photoUrl && (
+      {memory.photoId && (
         <div className="detail-photo">
-          <img
-            src={photoUrl}
-            alt={`Foto de ${memory.name}`}
-            style={{ objectPosition: objectPosition(memory.photoFocus) }}
-          />
+          {photoUrl && (
+            <img
+              src={photoUrl}
+              alt={`Foto de ${memory.name}`}
+              style={{ objectPosition: objectPosition(memory.photoFocus) }}
+            />
+          )}
         </div>
       )}
       <h2 className="detail-name" id={SHEET_TITLE_ID}>
@@ -59,18 +55,31 @@ function MemoryDetail({ memory }: { memory: Memory }) {
       <div className="detail-date">{formatLongDate(date)}</div>
       <div className="stat-row">
         <div className="stat">
-          <div className="big">
-            {elapsed ? formatElapsed(elapsed) : 'Aún no ocurre'}
-          </div>
-          <div className="cap">
-            {isFuture ? 'es una fecha futura' : 'de tiempo transcurrido'}
-          </div>
+          {!elapsed ? (
+            <>
+              <div className="big">Aún no ocurre</div>
+              <div className="cap">es una fecha futura</div>
+            </>
+          ) : happensToday(summary) ? (
+            <div className="big">¡Es hoy!</div>
+          ) : (
+            <>
+              <div className="label">Hace</div>
+              <div className="big">
+                {elapsedParts(elapsed).map((part) => (
+                  <span className="row" key={part}>
+                    {part}
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
         </div>
         <div className="stat">
+          <div className="label">{untilLabel}</div>
           <div className="big">
             {daysUntil === 0 ? '¡Hoy!' : formatDays(daysUntil)}
           </div>
-          <div className="cap">{untilCaption}</div>
         </div>
       </div>
       {memory.description && (

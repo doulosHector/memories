@@ -12,6 +12,9 @@ export interface PhotoFocus {
 
 export type ThemePreference = 'system' | 'light' | 'dark'
 
+/** List order by the event's date. */
+export type SortOrder = 'newest' | 'oldest'
+
 /** An important event the user wants to remember. */
 export interface Memory {
   id: string
@@ -26,6 +29,7 @@ export interface Memory {
 
 export interface Settings {
   theme: ThemePreference
+  sortOrder: SortOrder
 }
 
 export interface MemoriesState {

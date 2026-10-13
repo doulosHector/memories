@@ -52,7 +52,7 @@ export function BottomSheet({
 interface SheetContentProps {
   /** Visible title. Without it, the sheet body must render the element with `SHEET_TITLE_ID`. */
   title?: ReactNode
-  /** Smaller header with only the close button, so the content starts higher. */
+  /** Only a small close button floating at the top-right; the content starts at the top edge. */
   compact?: boolean
   onClose: () => void
   children: ReactNode

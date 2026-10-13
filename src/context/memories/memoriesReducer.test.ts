@@ -42,4 +42,12 @@ describe('memoriesReducer', () => {
     })
     expect(state.settings.theme).toBe('dark')
   })
+
+  it('changes the sort order', () => {
+    const state = memoriesReducer(memoriesState(), {
+      type: 'sortOrderChanged',
+      sortOrder: 'oldest',
+    })
+    expect(state.settings.sortOrder).toBe('oldest')
+  })
 })

@@ -1,6 +1,10 @@
 import { usePhotoUrl } from '../../../hooks/usePhotoUrl'
 import { happensToday, type MemorySummary } from '../../../services/memories'
-import { formatDays, formatElapsed } from '../../../utils/format'
+import {
+  formatDays,
+  formatElapsed,
+  formatLongDate,
+} from '../../../utils/format'
 import { objectPosition } from '../../../utils/photoFocus'
 import { cx } from '../../../utils/style'
 
@@ -26,7 +30,7 @@ function ElapsedLine({ summary }: { summary: MemorySummary }) {
 }
 
 export function MemoryCard({ summary, onOpen }: MemoryCardProps) {
-  const { memory, isFuture, daysUntil } = summary
+  const { memory, date, isFuture, daysUntil } = summary
   const isAnniversary = daysUntil === 0
   const hasPhoto = memory.photoId !== null
   const photoUrl = usePhotoUrl(memory.photoId)
@@ -50,6 +54,7 @@ export function MemoryCard({ summary, onOpen }: MemoryCardProps) {
       )}
       <span className="event-info">
         <span className="event-name">{memory.name}</span>
+        <span className="event-date">{formatLongDate(date)}</span>
         <span className="event-elapsed">
           <ElapsedLine summary={summary} />
         </span>

@@ -1,12 +1,12 @@
+/* Full width, at the very top of the sheet (under the floating close button). */
 .detail-photo {
-  border-radius: 12px;
-  overflow: hidden;
+  margin: -48px -20px 18px;
+  aspect-ratio: 4 / 3;
   background: var(--surface-2);
-  margin-bottom: 18px;
 }
 .detail-photo img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   object-fit: cover;
 }
 .detail-name {
@@ -14,7 +14,8 @@
   font-size: 26px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin-bottom: 4px;
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
 .detail-date {
   color: var(--ink-soft);

@@ -1,4 +1,9 @@
-import type { MemoriesState, Memory, ThemePreference } from '../../types'
+import type {
+  MemoriesState,
+  Memory,
+  SortOrder,
+  ThemePreference,
+} from '../../types'
 
 export type MemoryChanges = Partial<Omit<Memory, 'id' | 'createdAt'>>
 
@@ -7,6 +12,7 @@ export type MemoriesAction =
   | { type: 'memoryUpdated'; id: string; changes: MemoryChanges }
   | { type: 'memoryDeleted'; id: string }
   | { type: 'themeChanged'; theme: ThemePreference }
+  | { type: 'sortOrderChanged'; sortOrder: SortOrder }
 
 export function memoriesReducer(
   state: MemoriesState,
@@ -29,5 +35,10 @@ export function memoriesReducer(
       }
     case 'themeChanged':
       return { ...state, settings: { ...state.settings, theme: action.theme } }
+    case 'sortOrderChanged':
+      return {
+        ...state,
+        settings: { ...state.settings, sortOrder: action.sortOrder },
+      }
   }
 }
